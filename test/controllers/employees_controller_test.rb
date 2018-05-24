@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EmployeesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @employee = employees(:one)
+    @employee = create(:employee)
   end
 
   test "should get index" do
