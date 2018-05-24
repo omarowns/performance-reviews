@@ -68,6 +68,13 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
   end
 
+  test "should update review status automatically" do
+    patch review_url(@review), params: { review: { feedback: @review.feedback } }, as: :json
+    @review.reload
+
+    assert_equal @review.in_progress?, true
+  end
+
   test "should not update review status" do
     patch review_url(@review), params: { review: { feedback: @review.feedback, status: Review.statuses['finished'] } }, as: :json
     @review.reload
@@ -89,5 +96,13 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     @review.reload
 
     assert_not_equal @review.reviewee, employee
+  end
+
+  test "should set the review status to finished" do
+    post finish_review_url(@review), as: :json
+    @review.reload
+
+    assert_response 200
+    assert_equal @review.finished?, true
   end
 end

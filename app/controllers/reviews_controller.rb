@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :update]
+  before_action :set_review, only: [:show, :update, :finish]
 
   # GET /reviews
   def index
@@ -26,7 +26,16 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1
   def update
-    if @review.update(update_review_params)
+    if @review.update(update_review_params) && @review.in_progress!
+      render json: @review
+    else
+      render json: @review.errors, status: :unprocessable_entity
+    end
+  end
+
+  # POST /reviews/1/finish
+  def finish
+    if @review.finished!
       render json: @review
     else
       render json: @review.errors, status: :unprocessable_entity
