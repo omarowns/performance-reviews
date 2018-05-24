@@ -12,10 +12,18 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create employee" do
     assert_difference('Employee.count') do
-      post employees_url, params: { employee: { name: @employee.name, role: @employee.role } }, as: :json
+      post employees_url, params: { employee: { name: @employee.name } }, as: :json
     end
 
     assert_response 201
+  end
+
+  test "should create employee with role 'employee'" do
+    assert_difference('Employee.count') do
+      post employees_url, params: { employee: { name: @employee.name } }, as: :json
+    end
+
+    assert_equal Employee.last.role, 'Employee'
   end
 
   test "should show employee" do
