@@ -6,7 +6,7 @@ class EmployeeTest < ActiveSupport::TestCase
   end
 
   test 'as a reviewer I can have many reviews' do
-    create_list(:review, 3, reviewer: @employee, reviewee: nil)
+    create_list(:review, 3, reviewer: @employee)
     assert_equal @employee.reviews.count, 3
   end
 end
