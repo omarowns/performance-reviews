@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
 
   # POST /reviews
   def create
-    @review = Review.new(review_params)
+    @review = Review.new(create_review_params)
 
     if @review.save
       render json: @review, status: :created, location: @review
@@ -26,7 +26,7 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1
   def update
-    if @review.update(review_params)
+    if @review.update(update_review_params)
       render json: @review
     else
       render json: @review.errors, status: :unprocessable_entity
@@ -39,8 +39,11 @@ class ReviewsController < ApplicationController
       @review = Review.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
-    def review_params
-      params.require(:review).permit(:feedback, :status, :reviewer_id, :reviewee_id)
+    def create_review_params
+      params.require(:review).permit(:reviewer_id, :reviewee_id)
+    end
+
+    def update_review_params
+      params.require(:review).permit(:feedback)
     end
 end
