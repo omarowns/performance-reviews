@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :update, :destroy]
+  before_action :set_review, only: [:show, :update]
 
   # GET /reviews
   def index
@@ -33,11 +33,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # DELETE /reviews/1
-  def destroy
-    @review.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_review
@@ -46,6 +41,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def review_params
-      params.require(:review).permit(:feedback, :status)
+      params.require(:review).permit(:feedback, :status, :reviewer_id, :reviewee_id)
     end
 end
