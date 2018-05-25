@@ -43,6 +43,15 @@ $ rails test
 N/A
 
 ## Deployment instructions
+### Backend
+```
+$ gcloud app deploy
+```
+
+### Frontend
+```
+$ bin/deploy-react
+```
 
 ## Architecture
 ### Backend
@@ -72,3 +81,35 @@ The root namespace holds a more conventional RESTful API, ie: has routes like
 /employee/:employee_id/reviews/:id
 ```
 The root namespace doesn't implements all the CRUD for the models, only the ones needed.
+
+### Frontend
+The frond end is a SPA using React + Redux
+```
+app-react
+├── client
+│   ├── actions
+│   ├── api
+│   ├── components
+│   │   └── Admin
+│   ├── containers
+│   │   └── Admin
+│   ├── data
+│   ├── reducers
+│   ├── styles
+│   ├── boilerplate.js
+│   └── store.js
+├── config.dev.json
+├── devServer.js
+├── dist
+├── index.html
+├── package-lock.json
+├── package.json
+├── readme.md
+├── webpack.config.dev.js
+└── webpack.config.prod.js
+```
+
+It was created using my React + Redux boilerplate.
+The application code resides in `client/`.
+In these folder I separated `actions`, `components`, `containers`, `reducers` and `styles` into different folders.
+The `api` folder holds the endpoint constants and the library to call the backend.
