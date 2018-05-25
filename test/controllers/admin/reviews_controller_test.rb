@@ -6,6 +6,7 @@ class Admin::ReviewsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    ::Review.destroy_all
     get admin_reviews_url, as: :json
     assert_response :success
   end

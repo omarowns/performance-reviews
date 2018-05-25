@@ -12,7 +12,7 @@ class Admin::EmployeesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create admin_employee" do
     assert_difference('::Employee.count') do
-      post admin_employees_url, params: { employee: {  } }, as: :json
+      post admin_employees_url, params: { employee: { name: 'W' } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class Admin::EmployeesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update admin_employee" do
-    patch admin_employee_url(@admin_employee), params: { employee: {  } }, as: :json
+    patch admin_employee_url(@admin_employee), params: { employee: { name: 'W' } }, as: :json
     assert_response 200
   end
 
