@@ -4,7 +4,8 @@ import {
   GET_FEEDBACKS_EMPLOYEE_REVIEWS,
   POST_FINISH_EMPLOYEE_REVIEW,
   GET_EMPLOYEE_REVIEW,
-  PUT_EMPLOYEE_REVIEW
+  PUT_EMPLOYEE_REVIEW,
+  GET_ADMIN_REVIEWS
 } from './endpoints';
 
 export default {
@@ -33,4 +34,5 @@ export default {
         body
       );
   },
+  getAllAsAdmin: () => webutils.get(GET_ADMIN_REVIEWS)
 }

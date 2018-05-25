@@ -8,10 +8,13 @@ import {
   GET_EMPLOYEE_REVIEW_SUCCESS,
   GET_EMPLOYEE_REVIEW_ERROR,
   PUT_EMPLOYEE_REVIEW_SUCCESS,
-  PUT_EMPLOYEE_REVIEW_ERROR
+  PUT_EMPLOYEE_REVIEW_ERROR,
+  GET_ADMIN_REVIEWS_SUCCESS,
+  GET_ADMIN_REVIEWS_ERROR
 } from '../actions/reviews';
 
 const INITIAL_STATE = {
+  reviews: [],
   pendingReviews: [],
   feedbackReviews: [],
   review: null,
@@ -40,6 +43,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state };
     case PUT_EMPLOYEE_REVIEW_ERROR:
       return { ...state, errors: action.response.body.data };
+    case GET_ADMIN_REVIEWS_SUCCESS:
+      return { ...state, reviews: action.response.body.data };
+    case GET_ADMIN_REVIEWS_ERROR:
+      return { ...state, errors: action.response.body };
     default:
       return state;
   }

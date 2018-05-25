@@ -1,7 +1,8 @@
 import webutils from '../api/webutils';
 import {
   GET_EMPLOYEES,
-  GET_EMPLOYEE
+  GET_EMPLOYEE,
+  GET_ADMIN_EMPLOYEES
 } from '../api/endpoints';
 import EmployeeApi from '../api/employee';
 
@@ -68,5 +69,38 @@ export function getEmployee(id) {
       .get(id)
       .then(response => dispatch(getEmployeeSucess(response)))
       .catch(response => dispatch(getEmployeeError(response)))
+  }
+}
+
+export const GET_ADMIN_EMPLOYEES_START = 'GET_ADMIN_EMPLOYEES_START';
+export function getAdminEmployeesStart() {
+  return {
+    type: GET_ADMIN_EMPLOYEES_START
+  }
+}
+
+export const GET_ADMIN_EMPLOYEES_SUCCESS = 'GET_ADMIN_EMPLOYEES_SUCCESS';
+export function getAdminEmployeesSuccess(response) {
+  return {
+    type: GET_ADMIN_EMPLOYEES_SUCCESS,
+    response
+  }
+}
+
+export const GET_ADMIN_EMPLOYEES_ERROR = 'GET_ADMIN_EMPLOYEES_ERROR';
+export function getAdminEmployeesError(response) {
+  return {
+    type: GET_ADMIN_EMPLOYEES_ERROR,
+    response
+  }
+}
+
+export function getAdminEmployees() {
+  return dispatch => {
+    dispatch(getAdminEmployeesStart());
+    return EmployeeApi
+      .getAllAsAdmin()
+      .then(response => dispatch(getAdminEmployeesSuccess(response)))
+      .catch(response => dispatch(getAdminEmployeesError(response)))
   }
 }

@@ -4,7 +4,8 @@ import {
   GET_FEEDBACKS_EMPLOYEE_REVIEWS,
   POST_FINISH_EMPLOYEE_REVIEW,
   GET_EMPLOYEE_REVIEW,
-  PUT_EMPLOYEE_REVIEW
+  PUT_EMPLOYEE_REVIEW,
+  GET_ADMIN_REVIEWS
 } from '../api/endpoints';
 import ReviewApi from '../api/review';
 
@@ -176,5 +177,38 @@ export function putEmployeeReview(employeeId, reviewId, data) {
       .putEmployeeReview(employeeId, reviewId, data)
       .then(response => dispatch(putEmployeeReviewSuccess(response)))
       .catch(response => dispatch(putEmployeeReviewError(response)))
+  }
+}
+
+export const GET_ADMIN_REVIEWS_START = 'GET_ADMIN_REVIEWS_START';
+export function getAdminReviewsStart() {
+  return {
+    type: GET_ADMIN_REVIEWS_START
+  }
+}
+
+export const GET_ADMIN_REVIEWS_SUCCESS = 'GET_ADMIN_REVIEWS_SUCCESS';
+export function getAdminReviewsSuccess(response) {
+  return {
+    type: GET_ADMIN_REVIEWS_SUCCESS,
+    response
+  }
+}
+
+export const GET_ADMIN_REVIEWS_ERROR = 'GET_ADMIN_REVIEWS_ERROR';
+export function getAdminReviewsError(response) {
+  return {
+    type: GET_ADMIN_REVIEWS_ERROR,
+    response
+  }
+}
+
+export function getAdminReviews() {
+  return dispatch => {
+    dispatch(getAdminReviewsStart());
+    return ReviewApi
+      .getAllAsAdmin()
+      .then(response => dispatch(getAdminReviewsSuccess(response)))
+      .catch(response => dispatch(getAdminReviewsError(response)))
   }
 }

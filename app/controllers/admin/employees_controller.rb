@@ -3,7 +3,7 @@ class Admin::EmployeesController < ApplicationController
 
   # GET /admin/employees
   def index
-    @mployees = ::Employee.all
+    @employees = ::Employee.all
 
     render json: ::Admin::EmployeeSerializer.new(@employees).serialized_json
   end
