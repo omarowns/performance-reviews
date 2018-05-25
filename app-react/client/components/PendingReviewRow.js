@@ -29,7 +29,7 @@ class PendingReviewRow extends Component {
         <p> Status: { review.attributes.status } </p>
         <div className="control-buttons">
           <button>
-            <Link to={`/employee/${employee.attributes.id}/reviews/${review.attributes.id}`}>Edit</Link>
+            <Link to={`/employees/${employee.attributes.id}/reviews/${review.attributes.id}`}>Edit</Link>
           </button>
           <button onClick={ this.finishReview }>Submit</button>
         </div>

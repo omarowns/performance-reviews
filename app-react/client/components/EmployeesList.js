@@ -21,8 +21,8 @@ class EmployeesList extends Component {
     return employees.map(employee => {
       return (
         <li>
-          <Link to={`/employees/${employee.id}`}>
-            { employee.name }
+          <Link to={`/employees/${employee.attributes.id}`}>
+            <h5>{ employee.attributes.name }</h5>
           </Link>
         </li>
       );
