@@ -45,12 +45,12 @@ N/A
 ## Deployment instructions
 ### Backend
 ```
-$ gcloud app deploy
+$
 ```
 
 ### Frontend
 ```
-$ bin/deploy-react
+$
 ```
 
 ## Architecture
