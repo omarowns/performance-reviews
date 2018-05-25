@@ -1,0 +1,13 @@
+{
+  "name": "performance-reviews",
+  "license": "MIT",
+  "engines": {
+    "node": "8.11",
+    "yarn": "1.6.0"
+  },
+  "scripts": {
+      "build": "yarn --cwd app-react install && yarn --cwd app-react build",
+      "deploy": "cp -a app-react/dist/. public/",
+      "heroku-postbuild": "yarn build && yarn deploy"
+    }
+}

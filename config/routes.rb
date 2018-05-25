@@ -11,4 +11,8 @@ Rails.application.routes.draw do
     resources :employees
     resources :reviews, except: [:destroy]
   end
+
+  get '*path', to: "react#index", constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end
