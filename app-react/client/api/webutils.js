@@ -3,7 +3,7 @@ import request from 'superagent';
 const serverUrl = () => {
   // return process.env.SERVER_URL;
   if (process.env.NODE_ENV === 'production') {
-    return process.env.SERVER_URL;
+    return 'https://performance-reviews-205218.appspot.com';
   }
   return 'http://localhost:3000';
 };
