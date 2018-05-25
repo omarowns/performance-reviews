@@ -10,6 +10,18 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get only unreviewed and in_progress reviews" do
+    Review.destroy_all
+    create(:review, status: Review.statuses['unreviewed'])
+    create(:review, status: Review.statuses['in_progress'])
+    create(:review, status: Review.statuses['finished'])
+
+    get reviews_url, as: :json
+    json_response = JSON.parse(response.body)
+
+    assert_equal json_response.count, 2
+  end
+
   test "should create review" do
     employee1 = create(:employee)
     employee2 = create(:employee)

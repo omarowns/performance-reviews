@@ -10,4 +10,7 @@ class Review < ApplicationRecord
     in_progress: 1,
     finished: 2
   }
+
+  # scopes
+  scope :unfinished, -> { where.not(status: :finished) }
 end

@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews
   def index
-    @reviews = Review.all
+    @reviews = Review.all.unfinished
 
     render json: @reviews
   end
@@ -43,7 +43,6 @@ class ReviewsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_review
       @review = Review.find(params[:id])
     end
