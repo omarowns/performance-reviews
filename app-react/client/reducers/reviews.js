@@ -21,11 +21,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_PENDING_EMPLOYEE_REVIEWS_SUCCESS:
-      return { ...state, pendingReviews: action.response.body };
+      return { ...state, pendingReviews: action.response.body.data };
     case GET_PENDING_EMPLOYEE_REVIEWS_ERROR:
       return { ...state, errors: action.response.body };
     case GET_FEEDBACKS_EMPLOYEE_REVIEWS_SUCCESS:
-      return { ...state, feedbackReviews: action.response.body };
+      return { ...state, feedbackReviews: action.response.body.data };
     case GET_FEEDBACKS_EMPLOYEE_REVIEWS_ERROR:
       return { ...state, errors: action.response.body };
     case POST_FINISH_EMPLOYEE_REVIEW_SUCCESS:
@@ -33,13 +33,13 @@ export default (state = INITIAL_STATE, action) => {
     case POST_FINISH_EMPLOYEE_REVIEW_ERROR:
       return { ...state, errors: action.response.body };
     case GET_EMPLOYEE_REVIEW_SUCCESS:
-      return { ...state, review: action.response.body };
+      return { ...state, review: action.response.body.data };
     case GET_EMPLOYEE_REVIEW_ERROR:
       return { ...state, errors: action.response.body };
     case PUT_EMPLOYEE_REVIEW_SUCCESS:
       return { ...state };
     case PUT_EMPLOYEE_REVIEW_ERROR:
-      return { ...state, errors: action.response.body };
+      return { ...state, errors: action.response.body.data };
     default:
       return state;
   }

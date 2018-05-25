@@ -14,7 +14,7 @@ class PendingReviewRow extends Component {
     if (!employee || !review) { return null; }
 
     this.props.finishFunction &&
-      this.props.finishFunction(employee.id, review.id);
+      this.props.finishFunction(employee.attributes.id, review.attributes.id);
   }
 
   render() {
@@ -23,13 +23,13 @@ class PendingReviewRow extends Component {
 
     return (
       <div>
-        <h4> Review { review.id } </h4>
-        <p> Feedback: { review.reviewee_id } </p>
-        <p> { review.feedback }</p>
-        <p> Status: { review.status } </p>
+        <h4> Review { review.attributes.id } </h4>
+        <p> Feedback: to { review.attributes.reviewee_name } </p>
+        <p> { review.attributes.feedback }</p>
+        <p> Status: { review.attributes.status } </p>
         <div className="control-buttons">
           <button>
-            <Link to={`/employee/${employee.id}/reviews/${review.id}`}>Edit</Link>
+            <Link to={`/employee/${employee.attributes.id}/reviews/${review.attributes.id}`}>Edit</Link>
           </button>
           <button onClick={ this.finishReview }>Submit</button>
         </div>

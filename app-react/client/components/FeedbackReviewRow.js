@@ -13,7 +13,7 @@ class FeedbackReviewRow extends Component {
     return (
       <div>
         <h4> Review { review.id } </h4>
-        <p> Feedback: </p>
+        <p> Feedback: by { review.attributes.reviewer_name } </p>
         <p> { review.feedback }</p>
       </div>
     );
