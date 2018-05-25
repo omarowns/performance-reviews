@@ -13,4 +13,6 @@ class Review < ApplicationRecord
 
   # scopes
   scope :unfinished, -> { where.not(status: :finished) }
+  scope :pending_to_review_by, ->(employee) { unfinished.where(reviewer: employee) }
+  scope :reviews_for, ->(employee) { finished.where(reviewee: employee) }
 end

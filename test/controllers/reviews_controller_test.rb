@@ -3,92 +3,62 @@ require 'test_helper'
 class ReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @review = create(:review)
+    @employee = @review.reviewee
   end
 
-  test "should get index" do
-    get reviews_url, as: :json
+  test "should get pending reviews" do
+    get pending_employee_reviews_url(@employee), as: :json
     assert_response :success
   end
 
-  test "should get only unreviewed and in_progress reviews" do
-    Review.destroy_all
-    create(:review, status: Review.statuses['unreviewed'])
-    create(:review, status: Review.statuses['in_progress'])
-    create(:review, status: Review.statuses['finished'])
+  test "should get feedbacks reviews" do
+    get feedbacks_employee_reviews_url(@employee), as: :json
+    assert_response :success
+  end
 
-    get reviews_url, as: :json
+  test "should get only unreviewed and in_progress reviews for pending" do
+    Review.destroy_all
+    create(:review, status: Review.statuses['unreviewed'], reviewer: @employee)
+    create(:review, status: Review.statuses['in_progress'], reviewer: @employee)
+    create(:review, status: Review.statuses['finished'], reviewer: @employee)
+
+    get pending_employee_reviews_url(@employee), as: :json
     json_response = JSON.parse(response.body)
 
     assert_equal json_response.count, 2
   end
 
-  test "should create review" do
-    employee1 = create(:employee)
-    employee2 = create(:employee)
+  test "should get only the reviews as reviewee for feedbacks" do
+    Review.destroy_all
+    create(:review, status: Review.statuses['unreviewed'], reviewee: @employee)
+    create(:review, status: Review.statuses['in_progress'], reviewee: @employee)
+    create(:review, status: Review.statuses['finished'], reviewee: @employee)
 
-    assert_difference('Review.count') do
-      post reviews_url, params: {
-        review: {
-          reviewer_id: employee1.id,
-          reviewee_id: employee2.id
-        }
-      }, as: :json
-    end
+    get feedbacks_employee_reviews_url(@employee), as: :json
+    json_response = JSON.parse(response.body)
 
-    assert_response 201
-  end
-
-  test "should create review without feedback" do
-    employee1 = create(:employee)
-    employee2 = create(:employee)
-
-    assert_difference('Review.count') do
-      post reviews_url, params: {
-        review: {
-          reviewer_id: employee1.id,
-          reviewee_id: employee2.id
-        }
-      }, as: :json
-    end
-
-    assert_equal Review.last.feedback, ''
-  end
-
-  test "should create review with status unreviewed" do
-    employee1 = create(:employee)
-    employee2 = create(:employee)
-
-    assert_difference('Review.count') do
-      post reviews_url, params: {
-        review: {
-          reviewer_id: employee1.id,
-          reviewee_id: employee2.id
-        }
-      }, as: :json
-    end
-
-    assert_equal Review.last.unreviewed?, true
+    assert_equal json_response.count, 1
   end
 
   test "should show review" do
-    get review_url(@review), as: :json
+    get employee_review_url(@employee, @review), as: :json
     assert_response :success
   end
 
   test "should update review" do
-    patch review_url(@review), params: { review: { feedback: @review.feedback } }, as: :json
+    patch employee_review_url(@employee, @review), params: { review: { feedback: @review.feedback } }, as: :json
     assert_response 200
   end
 
   test "should update review status automatically" do
-    patch review_url(@review), params: { review: { feedback: @review.feedback } }, as: :json
+    patch employee_review_url(@employee, @review), params: { review: { feedback: @review.feedback } }, as: :json
     @review.reload
 
     assert_equal @review.in_progress?, true
   end
 
   test "should not update review status" do
-    patch review_url(@review), params: { review: { feedback: @review.feedback, status: Review.statuses['finished'] } }, as: :json
+    patch employee_review_url(@employee, @review), params: { review: { feedback: @review.feedback, status: Review.statuses['finished'] } }, as: :json
     @review.reload
 
     assert_not_equal @review.status, Review.statuses['finished']
@@ -96,7 +66,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update review reviewer" do
     employee = create(:employee)
-    patch review_url(@review), params: { review: { feedback: @review.feedback, reviewer_id: employee.id } }, as: :json
+    patch employee_review_url(@employee, @review), params: { review: { feedback: @review.feedback, reviewer_id: employee.id } }, as: :json
     @review.reload
 
     assert_not_equal @review.reviewer, employee
@@ -104,14 +74,14 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update review reviewee" do
     employee = create(:employee)
-    patch review_url(@review), params: { review: { feedback: @review.feedback, reviewee_id: employee.id } }, as: :json
+    patch employee_review_url(@employee, @review), params: { review: { feedback: @review.feedback, reviewee_id: employee.id } }, as: :json
     @review.reload
 
     assert_not_equal @review.reviewee, employee
   end
 
   test "should set the review status to finished" do
-    post finish_review_url(@review), as: :json
+    post finish_employee_review_url(@employee, @review), as: :json
     @review.reload
 
     assert_response 200
