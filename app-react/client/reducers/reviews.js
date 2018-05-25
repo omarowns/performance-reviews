@@ -40,9 +40,9 @@ export default (state = INITIAL_STATE, action) => {
     case GET_EMPLOYEE_REVIEW_ERROR:
       return { ...state, errors: action.response.body };
     case PUT_EMPLOYEE_REVIEW_SUCCESS:
-      return { ...state };
+      return { ...state, review: action.response.body.data };
     case PUT_EMPLOYEE_REVIEW_ERROR:
-      return { ...state, errors: action.response.body.data };
+      return { ...state, errors: action.response.body };
     case GET_ADMIN_REVIEWS_SUCCESS:
       return { ...state, reviews: action.response.body.data };
     case GET_ADMIN_REVIEWS_ERROR:

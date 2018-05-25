@@ -174,7 +174,7 @@ export function putEmployeeReview(employeeId, reviewId, data) {
   return dispatch => {
     dispatch(putEmployeeReviewStart());
     return ReviewApi
-      .putEmployeeReview(employeeId, reviewId, data)
+      .putEmployeeReview(employeeId, reviewId, { review: data })
       .then(response => dispatch(putEmployeeReviewSuccess(response)))
       .catch(response => dispatch(putEmployeeReviewError(response)))
   }
