@@ -6,4 +6,9 @@ Rails.application.routes.draw do
       post 'finish', on: :member
     end
   end
+
+  namespace :admin do
+    resources :employees
+    resources :reviews, except: [:destroy]
+  end
 end
