@@ -13,6 +13,7 @@ import EmployeeContainer from './containers/EmployeeContainer';
 import ReviewContainer from './containers/ReviewContainer';
 import AdminDashboardContainer from './containers/Admin/DashboardContainer';
 import AdminEmployeeContainer from './containers/Admin/EmployeeContainer';
+import AdminNewReviewContainer from './containers/Admin/NewReviewContainer';
 
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
@@ -28,6 +29,7 @@ const router = (
         <Route path="/employees/:employee_id/reviews/:id" component={ReviewContainer}></Route>
         <Route path="/admin" component={AdminDashboardContainer}></Route>
         <Route path="/admin/employees/:employee_id" component={AdminEmployeeContainer}></Route>
+        <Route path="/admin/reviews/new" component={AdminNewReviewContainer}></Route>
       </Route>
     </Router>
   </Provider>

@@ -5,7 +5,8 @@ import {
   POST_FINISH_EMPLOYEE_REVIEW,
   GET_EMPLOYEE_REVIEW,
   PUT_EMPLOYEE_REVIEW,
-  GET_ADMIN_REVIEWS
+  GET_ADMIN_REVIEWS,
+  POST_ADMIN_REVIEWS
 } from './endpoints';
 
 export default {
@@ -34,5 +35,6 @@ export default {
         body
       );
   },
-  getAllAsAdmin: () => webutils.get(GET_ADMIN_REVIEWS)
+  getAllAsAdmin: () => webutils.get(GET_ADMIN_REVIEWS),
+  postAsAdmin: (data) => webutils.post(POST_ADMIN_REVIEWS, data)
 }

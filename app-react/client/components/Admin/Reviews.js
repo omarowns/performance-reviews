@@ -42,6 +42,11 @@ class Reviews extends Component {
     return (
       <div>
         <h4> Reviews </h4>
+        <div className="control-buttons">
+          <button>
+            <Link to={`/admin/reviews/new`}>New</Link>
+          </button>
+        </div>
         <ul>
           { this.renderReviews() }
         </ul>

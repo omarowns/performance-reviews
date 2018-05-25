@@ -1,3 +1,4 @@
+import { push } from "react-router-redux";
 import webutils from '../api/webutils';
 import {
   GET_PENDING_EMPLOYEE_REVIEWS,
@@ -5,7 +6,8 @@ import {
   POST_FINISH_EMPLOYEE_REVIEW,
   GET_EMPLOYEE_REVIEW,
   PUT_EMPLOYEE_REVIEW,
-  GET_ADMIN_REVIEWS
+  GET_ADMIN_REVIEWS,
+  POST_ADMIN_REVIEWS
 } from '../api/endpoints';
 import ReviewApi from '../api/review';
 
@@ -210,5 +212,41 @@ export function getAdminReviews() {
       .getAllAsAdmin()
       .then(response => dispatch(getAdminReviewsSuccess(response)))
       .catch(response => dispatch(getAdminReviewsError(response)))
+  }
+}
+
+export const POST_ADMIN_REVIEWS_START = 'POST_ADMIN_REVIEWS_START';
+export function postAdminReviewsStart() {
+  return {
+    type: POST_ADMIN_REVIEWS_START
+  }
+}
+
+export const POST_ADMIN_REVIEWS_SUCCESS = 'POST_ADMIN_REVIEWS_SUCCESS';
+export function postAdminReviewsSuccess(response) {
+  return {
+    type: POST_ADMIN_REVIEWS_SUCCESS,
+    response
+  }
+}
+
+export const POST_ADMIN_REVIEWS_ERROR = 'POST_ADMIN_REVIEWS_ERROR';
+export function postAdminReviewsError(response) {
+  return {
+    type: POST_ADMIN_REVIEWS_ERROR,
+    response
+  }
+}
+
+export function postAdminReviews(data) {
+  return dispatch => {
+    dispatch(postAdminReviewsStart());
+    return ReviewApi
+      .postAsAdmin({ review: data })
+      .then(response => {
+        dispatch(postAdminReviewsSuccess(response));
+        dispatch(push('/admin'));
+      })
+      .catch(response => dispatch(postAdminReviewsError(response)))
   }
 }
