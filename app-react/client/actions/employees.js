@@ -2,7 +2,9 @@ import webutils from '../api/webutils';
 import {
   GET_EMPLOYEES,
   GET_EMPLOYEE,
-  GET_ADMIN_EMPLOYEES
+  GET_ADMIN_EMPLOYEES,
+  GET_ADMIN_EMPLOYEE,
+  PUT_ADMIN_EMPLOYEE
 } from '../api/endpoints';
 import EmployeeApi from '../api/employee';
 
@@ -102,5 +104,71 @@ export function getAdminEmployees() {
       .getAllAsAdmin()
       .then(response => dispatch(getAdminEmployeesSuccess(response)))
       .catch(response => dispatch(getAdminEmployeesError(response)))
+  }
+}
+
+export const GET_ADMIN_EMPLOYEE_START = 'GET_ADMIN_EMPLOYEE_START';
+export function getAdminEmployeeStart() {
+  return {
+    type: GET_ADMIN_EMPLOYEE_START
+  }
+}
+
+export const GET_ADMIN_EMPLOYEE_SUCCESS = 'GET_ADMIN_EMPLOYEE_SUCCESS';
+export function getAdminEmployeeSuccess(response) {
+  return {
+    type: GET_ADMIN_EMPLOYEE_SUCCESS,
+    response
+  }
+}
+
+export const GET_ADMIN_EMPLOYEE_ERROR = 'GET_ADMIN_EMPLOYEE_ERROR';
+export function getAdminEmployeeError(response) {
+  return {
+    type: GET_ADMIN_EMPLOYEE_ERROR,
+    response
+  }
+}
+
+export function getAdminEmployee(employeeId) {
+  return dispatch => {
+    dispatch(getAdminEmployeeStart());
+    return EmployeeApi
+      .getAsAdmin(employeeId)
+      .then(response => dispatch(getAdminEmployeeSuccess(response)))
+      .catch(response => dispatch(getAdminEmployeeError(response)))
+  }
+}
+
+export const PUT_ADMIN_EMPLOYEE_START = 'PUT_ADMIN_EMPLOYEE_START';
+export function putAdminEmployeeStart() {
+  return {
+    type: PUT_ADMIN_EMPLOYEE_START
+  }
+}
+
+export const PUT_ADMIN_EMPLOYEE_SUCCESS = 'PUT_ADMIN_EMPLOYEE_SUCCESS';
+export function putAdminEmployeeSuccess(response) {
+  return {
+    type: PUT_ADMIN_EMPLOYEE_SUCCESS,
+    response
+  }
+}
+
+export const PUT_ADMIN_EMPLOYEE_ERROR = 'PUT_ADMIN_EMPLOYEE_ERROR';
+export function putAdminEmployeeError(response) {
+  return {
+    type: PUT_ADMIN_EMPLOYEE_ERROR,
+    response
+  }
+}
+
+export function putAdminEmployee(employeeId, data) {
+  return dispatch => {
+    dispatch(getAdminEmployeeStart());
+    return EmployeeApi
+      .putAsAdmin(employeeId, { employee: data })
+      .then(response => dispatch(getAdminEmployeeSuccess(response)))
+      .catch(response => dispatch(getAdminEmployeeError(response)))
   }
 }
