@@ -3,7 +3,7 @@ import request from 'superagent';
 const serverUrl = () => {
   // return process.env.SERVER_URL;
   if (process.env.NODE_ENV === 'production') {
-    return 'https://performance-reviews.herokuapp.com/employees';
+    return 'https://performance-reviews.herokuapp.com';
   }
   return 'http://localhost:3000';
 };
