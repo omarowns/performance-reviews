@@ -8,6 +8,7 @@ import {
   DELETE_ADMIN_EMPLOYEE
 } from '../api/endpoints';
 import EmployeeApi from '../api/employee';
+import { getAdminReviews } from './reviews';
 
 export const GET_EMPLOYEES_START = 'GET_EMPLOYEES_START';
 export function getEmployeesStart() {
@@ -205,6 +206,7 @@ export function deleteAdminEmployee(employeeId) {
       .then(response => {
         dispatch(deleteAdminEmployeeSuccess(response));
         dispatch(getAdminEmployees());
+        dispatch(getAdminReviews());
       })
       .catch(response => dispatch(deleteAdminEmployeeError(response)))
   }
