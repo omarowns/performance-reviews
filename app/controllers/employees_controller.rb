@@ -5,37 +5,12 @@ class EmployeesController < ApplicationController
   def index
     @employees = Employee.all
 
-    render json: @employees
+    render json: ::EmployeeSerializer.new(@employees).serialized_json
   end
 
   # GET /employees/1
   def show
-    render json: @employee
-  end
-
-  # POST /employees
-  def create
-    @employee = Employee.new(employee_params)
-
-    if @employee.save
-      render json: @employee, status: :created, location: @employee
-    else
-      render json: @employee.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /employees/1
-  def update
-    if @employee.update(employee_params)
-      render json: @employee
-    else
-      render json: @employee.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /employees/1
-  def destroy
-    @employee.destroy
+    render json: ::EmployeeSerializer.new(@employee).serialized_json
   end
 
   private

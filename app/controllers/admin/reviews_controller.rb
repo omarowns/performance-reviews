@@ -5,12 +5,12 @@ class Admin::ReviewsController < ApplicationController
   def index
     @reviews = ::Review.all
 
-    render json: @reviews
+    render json: ::Admin::ReviewSerializer.new(@reviews).serialized_json
   end
 
   # GET /admin/reviews/1
   def show
-    render json: @review
+    render json: ::Admin::ReviewSerializer.new(@review).serialized_json
   end
 
   # POST /admin/reviews
@@ -18,7 +18,7 @@ class Admin::ReviewsController < ApplicationController
     @review = ::Review.new(admin_review_params)
 
     if @review.save
-      render json: @review, status: :created, location: admin_review_url(@review)
+      render json: ::Admin::ReviewSerializer.new(@review).serialized_json, status: :created, location: admin_review_url(@review)
     else
       render json: @review.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::ReviewsController < ApplicationController
   # PATCH/PUT /admin/reviews/1
   def update
     if @review.update(admin_review_params)
-      render json: @review
+      render json: ::Admin::ReviewSerializer.new(@review).serialized_json
     else
       render json: @review.errors, status: :unprocessable_entity
     end

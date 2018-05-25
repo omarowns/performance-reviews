@@ -10,37 +10,8 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create employee" do
-    assert_difference('Employee.count') do
-      post employees_url, params: { employee: { name: @employee.name } }, as: :json
-    end
-
-    assert_response 201
-  end
-
-  test "should create employee with role 'employee'" do
-    assert_difference('Employee.count') do
-      post employees_url, params: { employee: { name: @employee.name } }, as: :json
-    end
-
-    assert_equal Employee.last.role, 'Employee'
-  end
-
   test "should show employee" do
     get employee_url(@employee), as: :json
     assert_response :success
-  end
-
-  test "should update employee" do
-    patch employee_url(@employee), params: { employee: { name: @employee.name, role: @employee.role } }, as: :json
-    assert_response 200
-  end
-
-  test "should destroy employee" do
-    assert_difference('Employee.count', -1) do
-      delete employee_url(@employee), as: :json
-    end
-
-    assert_response 204
   end
 end

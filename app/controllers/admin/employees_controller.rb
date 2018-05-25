@@ -5,12 +5,12 @@ class Admin::EmployeesController < ApplicationController
   def index
     @mployees = ::Employee.all
 
-    render json: @mployees
+    render json: ::Admin::EmployeeSerializer.new(@employees).serialized_json
   end
 
   # GET /admin/employees/1
   def show
-    render json: @employee
+    render json: ::Admin::EmployeeSerializer.new(@employee).serialized_json
   end
 
   # POST /admin/employees
@@ -18,7 +18,7 @@ class Admin::EmployeesController < ApplicationController
     @employee = ::Employee.new(admin_employee_params)
 
     if @employee.save
-      render json: @employee, status: :created, location: @employee
+      render json: ::Admin::EmployeeSerializer.new(@employee).serialized_json, status: :created, location: @employee
     else
       render json: @employee.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::EmployeesController < ApplicationController
   # PATCH/PUT /admin/employees/1
   def update
     if @employee.update(admin_employee_params)
-      render json: @employee
+      render json: ::Admin::EmployeeSerializer.new(@employee).serialized_json
     else
       render json: @employee.errors, status: :unprocessable_entity
     end

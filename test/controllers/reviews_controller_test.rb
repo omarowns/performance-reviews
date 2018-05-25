@@ -23,7 +23,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     create(:review, status: Review.statuses['finished'], reviewer: @employee)
 
     get pending_employee_reviews_url(@employee), as: :json
-    json_response = JSON.parse(response.body)
+    json_response = JSON.parse(response.body)['data']
 
     assert_equal json_response.count, 2
   end
@@ -35,7 +35,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     create(:review, status: Review.statuses['finished'], reviewee: @employee)
 
     get feedbacks_employee_reviews_url(@employee), as: :json
-    json_response = JSON.parse(response.body)
+    json_response = JSON.parse(response.body)['data']
 
     assert_equal json_response.count, 1
   end
