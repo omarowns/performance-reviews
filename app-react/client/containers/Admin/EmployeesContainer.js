@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import Employees from '../../components/Admin/Employees';
 import {
-  getAdminEmployees
+  getAdminEmployees,
+  deleteAdminEmployee
 } from '../../actions/employees';
 
 
@@ -13,7 +14,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getAdminEmployees: () => dispatch(getAdminEmployees())
+    getAdminEmployees: () => dispatch(getAdminEmployees()),
+    deleteAdminEmployee: (id) => dispatch(deleteAdminEmployee(id))
   };
 }
 

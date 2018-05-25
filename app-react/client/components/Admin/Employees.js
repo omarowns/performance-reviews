@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import DeleteButton from './DeleteButton';
 
 class Employees extends Component {
   constructor(props) {
@@ -20,11 +21,15 @@ class Employees extends Component {
     return employees.map(employee => {
       return (
         <li>
-          <Link to={`/admin/employees/${employee.attributes.id}`}>
-            <h5>{ employee.attributes.name }</h5>
-            <div>
+          <h5>{ employee.attributes.name }</h5>
+          <div>
+            <div className="control-buttons">
+              <button>
+                <Link to={`/admin/employees/${employee.attributes.id}`}>Edit</Link>
+              </button>
+              <DeleteButton employee={employee} deleteFunction={ this.props.deleteAdminEmployee }/>
             </div>
-          </Link>
+          </div>
         </li>
       );
     });

@@ -6,7 +6,8 @@ import {
   PUT_EMPLOYEE_REVIEW,
   GET_ADMIN_EMPLOYEES,
   GET_ADMIN_EMPLOYEE,
-  PUT_ADMIN_EMPLOYEE
+  PUT_ADMIN_EMPLOYEE,
+  DELETE_ADMIN_EMPLOYEE
 } from './endpoints';
 
 export default {
@@ -21,5 +22,6 @@ export default {
   },
   getAllAsAdmin: () => webutils.get(GET_ADMIN_EMPLOYEES),
   getAsAdmin: (id) => webutils.get(GET_ADMIN_EMPLOYEE.replace(':id', id)),
-  putAsAdmin: (id, data) => webutils.put(PUT_ADMIN_EMPLOYEE.replace(':id', id), data)
+  putAsAdmin: (id, data) => webutils.put(PUT_ADMIN_EMPLOYEE.replace(':id', id), data),
+  deleteAsAdmin: (id) => webutils.del(DELETE_ADMIN_EMPLOYEE.replace(':id', id))
 }

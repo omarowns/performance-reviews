@@ -4,7 +4,8 @@ import {
   GET_EMPLOYEE,
   GET_ADMIN_EMPLOYEES,
   GET_ADMIN_EMPLOYEE,
-  PUT_ADMIN_EMPLOYEE
+  PUT_ADMIN_EMPLOYEE,
+  DELETE_ADMIN_EMPLOYEE
 } from '../api/endpoints';
 import EmployeeApi from '../api/employee';
 
@@ -165,10 +166,46 @@ export function putAdminEmployeeError(response) {
 
 export function putAdminEmployee(employeeId, data) {
   return dispatch => {
-    dispatch(getAdminEmployeeStart());
+    dispatch(putAdminEmployeeStart());
     return EmployeeApi
       .putAsAdmin(employeeId, { employee: data })
-      .then(response => dispatch(getAdminEmployeeSuccess(response)))
-      .catch(response => dispatch(getAdminEmployeeError(response)))
+      .then(response => dispatch(putAdminEmployeeSuccess(response)))
+      .catch(response => dispatch(putAdminEmployeeError(response)))
+  }
+}
+
+export const DELETE_ADMIN_EMPLOYEE_START = 'DELETE_ADMIN_EMPLOYEE_START';
+export function deleteAdminEmployeeStart() {
+  return {
+    type: DELETE_ADMIN_EMPLOYEE_START
+  }
+}
+
+export const DELETE_ADMIN_EMPLOYEE_SUCCESS = 'DELETE_ADMIN_EMPLOYEE_SUCCESS';
+export function deleteAdminEmployeeSuccess(response) {
+  return {
+    type: DELETE_ADMIN_EMPLOYEE_SUCCESS,
+    response
+  }
+}
+
+export const DELETE_ADMIN_EMPLOYEE_ERROR = 'DELETE_ADMIN_EMPLOYEE_ERROR';
+export function deleteAdminEmployeeError(response) {
+  return {
+    type: DELETE_ADMIN_EMPLOYEE_ERROR,
+    response
+  }
+}
+
+export function deleteAdminEmployee(employeeId) {
+  return dispatch => {
+    dispatch(deleteAdminEmployeeStart());
+    return EmployeeApi
+      .deleteAsAdmin(employeeId)
+      .then(response => {
+        dispatch(deleteAdminEmployeeSuccess(response));
+        dispatch(getAdminEmployees());
+      })
+      .catch(response => dispatch(deleteAdminEmployeeError(response)))
   }
 }

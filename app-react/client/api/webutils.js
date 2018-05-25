@@ -20,7 +20,7 @@ export default {
       .put(`${serverUrl()}${path}`)
       .send(body);
   },
-  destroy: (path) => {
+  del: (path) => {
     return request
       .del(`${serverUrl()}${path}`);
   }
